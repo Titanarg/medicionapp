@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Aplicación para medición de áreas de moldes"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
@@ -24,10 +24,58 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <title>Medición de Áreas de Moldes</title>
+    
+    <!-- Cargar OpenCV de manera más robusta -->
+    <script>
+      // Función para notificar cuando OpenCV esté listo
+      function onOpenCvReady() {
+        console.log('OpenCV está listo');
+        window.dispatchEvent(new Event('opencv-loaded'));
+      }
+      
+      // Función para cargar OpenCV con reintentos
+      function loadOpenCV() {
+        // Verificar si ya está cargado
+        if (window.cv && typeof window.cv.imread === 'function') {
+          onOpenCvReady();
+          return;
+        }
+        
+        // Crear el script de OpenCV
+        const script = document.createElement('script');
+        script.setAttribute('async', '');
+        script.setAttribute('src', 'https://docs.opencv.org/4.5.5/opencv.js');
+        script.onload = onOpenCvReady;
+        script.onerror = function() {
+          console.error('Error al cargar OpenCV. Reintentando desde una CDN alternativa...');
+          // Intentar con otra CDN si falla
+          const fallbackScript = document.createElement('script');
+          fallbackScript.setAttribute('async', '');
+          fallbackScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/opencv.js@1.2.1/opencv.min.js');
+          fallbackScript.onload = onOpenCvReady;
+          fallbackScript.onerror = function() {
+            console.error('No se pudo cargar OpenCV desde ninguna fuente.');
+          };
+          document.head.appendChild(fallbackScript);
+        };
+        document.head.appendChild(script);
+      }
+      
+      // Intentar cargar OpenCV cuando la página esté lista
+      document.addEventListener('DOMContentLoaded', loadOpenCV);
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Necesitás habilitar JavaScript para ejecutar esta aplicación.</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.

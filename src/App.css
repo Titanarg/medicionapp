@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -14,14 +17,10 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #007bff;
   color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .App-link {
@@ -34,5 +33,60 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.canvas-container {
+  position: relative;
+  margin: 1rem auto;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.calibration-line {
+  stroke: red;
+  stroke-width: 2px;
+}
+
+.calibration-point {
+  fill: red;
+  r: 5;
+}
+
+.mold-contour {
+  stroke: blue;
+  stroke-width: 2px;
+  fill: rgba(0, 120, 255, 0.1);
+}
+
+.mold-contour.selected {
+  stroke: orange;
+  stroke-width: 3px;
+  fill: rgba(255, 165, 0, 0.2);
+}
+
+.results-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+  .content {
+    padding: 0.5rem;
   }
 }

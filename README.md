@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+# Aplicación de Medición de Áreas de Moldes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web PWA para medir áreas de moldes en piezas de calzado. Permite cargar imágenes, calibrar la escala utilizando una referencia conocida, detectar y clasificar los moldes, y calcular sus áreas en centímetros cuadrados.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+- **Captura o selección de imágenes**: Permite tomar fotos con la cámara o seleccionar imágenes de la galería.
+- **Calibración de escala**: Establece la relación entre píxeles y centímetros usando una referencia conocida.
+- **Detección de moldes**: Utiliza algoritmos de visión por computadora para detectar automáticamente los contornos de los moldes.
+- **Clasificación de moldes**: Permite clasificar los moldes en diferentes tipos (corte, forro, etc.).
+- **Factores multiplicadores**: Aplica factores de multiplicación a cada molde para cálculos de áreas ajustadas.
+- **Informe de resultados**: Genera un informe con las áreas totales por tipo de molde.
+- **Funcionamiento offline**: Funciona como PWA, permitiendo su uso sin conexión a internet.
 
-### `npm start`
+## Tecnologías utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React.js con TypeScript
+- Material UI para la interfaz de usuario
+- OpenCV.js para el procesamiento de imágenes
+- React Router para la navegación
+- PWA para funcionalidad offline
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Instalación
 
-### `npm test`
+1. Clona este repositorio:
+   ```
+   git clone <url-del-repositorio>
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navega al directorio del proyecto:
+   ```
+   cd medicion-moldes-web
+   ```
 
-### `npm run build`
+3. Instala las dependencias:
+   ```
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Inicia el servidor de desarrollo:
+   ```
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Uso
 
-### `npm run eject`
+1. En la página principal, selecciona una imagen usando la galería o toma una foto con la cámara.
+2. Asegúrate de que en la imagen haya una referencia de medida conocida (regla, objeto de dimensiones conocidas).
+3. Presiona "Medir Área" para pasar a la página de procesamiento.
+4. Calibra la imagen seleccionando dos puntos de una distancia conocida (ej: 10cm en una regla).
+5. Presiona "Detectar Moldes" para que la aplicación identifique los moldes en la imagen.
+6. Clasifica cada molde según su tipo y ajusta los factores multiplicadores si es necesario.
+7. Presiona "Calcular Resultados" para obtener las áreas totales.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Despliegue en Netlify
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para desplegar esta aplicación en Netlify:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Crea una cuenta en [Netlify](https://www.netlify.com/).
+2. Desde el dashboard de Netlify, haz clic en "New site from Git".
+3. Selecciona tu repositorio.
+4. Configura las opciones de construcción:
+   - Build command: `npm run build`
+   - Publish directory: `build`
+5. Haz clic en "Deploy site".
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Desarrollo
 
-## Learn More
+### Estructura del proyecto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+medicion-moldes-web/
+├── public/           # Archivos públicos y manifest.json
+├── src/              # Código fuente
+│   ├── components/   # Componentes reutilizables
+│   ├── hooks/        # Hooks personalizados
+│   ├── pages/        # Páginas principales
+│   ├── types/        # Definiciones de tipos TypeScript
+│   ├── App.tsx       # Componente principal
+│   └── index.tsx     # Punto de entrada
+└── ...
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contribución
+
+1. Haz un fork del proyecto
+2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Realiza tus cambios
+4. Commit a tus cambios (`git commit -am 'Añade nueva funcionalidad'`)
+5. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+6. Crea un nuevo Pull Request
+
+## Licencia
+
+Este proyecto está licenciado bajo la licencia MIT - ver el archivo LICENSE para más detalles.

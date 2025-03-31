@@ -1,25 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Box, CssBaseline, Container, AppBar, Toolbar, Typography } from '@mui/material';
+import Home from './pages/Home';
+import Process from './pages/Process';
 import './App.css';
+
+// Definimos el tipo global para OpenCV
+declare global {
+  interface Window {
+    cv: any;
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ 
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Medición de Áreas de Moldes
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/process" element={<Process />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Container>
+    </Box>
   );
 }
 

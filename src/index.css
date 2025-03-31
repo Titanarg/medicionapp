@@ -1,13 +1,86 @@
+:root {
+  --color-primary: #1e88e5;
+  --color-primary-dark: #1565c0;
+  --color-primary-light: #bbdefb;
+  --color-secondary: #4caf50;
+  --color-secondary-dark: #2e7d32;
+  --color-error: #f44336;
+  --color-warning: #ff9800;
+  --color-info: #2196f3;
+  --color-success: #4caf50;
+  --color-background: #f8f9fa;
+  --color-card: #ffffff;
+  --color-text: #212121;
+  --color-text-secondary: #757575;
+  --color-border: #e0e0e0;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --transition-fast: 0.15s ease;
+  --font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.container {
+  padding: 1rem;
+}
+
+/* Elementos de acción interactiva */
+button, 
+.MuiButton-root {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+button:hover,
+.MuiButton-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Elementos contendedores */
+.MuiPaper-root {
+  border-radius: var(--border-radius) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MuiPaper-root:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras para el canvas */
+canvas {
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 600px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (pointer: coarse) {
+  canvas {
+    touch-action: none;
+  }
 }
