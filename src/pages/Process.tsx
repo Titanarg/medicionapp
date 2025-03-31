@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -10,7 +11,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
   TextField,
   List,
   ListItem,
@@ -25,7 +25,6 @@ import {
   AppBar,
   Toolbar,
   useTheme,
-  useMediaQuery,
   Stepper,
   Step,
   StepLabel,
@@ -37,16 +36,13 @@ import {
   CardHeader,
   CardContent,
   Avatar,
-  Backdrop,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
-  Popover,
   Fab,
   StepContent,
-  Zoom,
   Snackbar,
   FormControlLabel,
   Switch
@@ -64,7 +60,6 @@ import {
   Timeline as ContourIcon,
   BrandingWatermark as AreaIcon,
   Help,
-  ColorLens,
   FormatPaint,
   Close,
   Check,
@@ -118,7 +113,6 @@ export default function Process() {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeStep, setActiveStep] = useState<ProcessStep>(ProcessStep.CALIBRATION);
   const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.NONE);
   const [showTutorial, setShowTutorial] = useState<boolean>(true);
@@ -361,6 +355,7 @@ export default function Process() {
     if (redrawImageWithCalibrationGuideRef.current) {
       redrawImageWithCalibrationGuideRef.current();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCalibrating, calibrationPoints]);
   
   // Manejar clics en el canvas para calibración o selección manual
@@ -734,7 +729,8 @@ export default function Process() {
         setError(`Error al procesar el color seleccionado: ${err instanceof Error ? err.message : 'Error desconocido'}`);
       }
     }
-  }, [selectionMode, calibrationFactor, colorTolerance, debugMode, openCvLoaded]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectionMode, calibrationFactor, colorTolerance, debugMode, openCvLoaded, redrawImageWithCalibrationGuide, setError]);
   
   // Iniciar calibración
   const startCalibration = useCallback(() => {
@@ -793,7 +789,11 @@ export default function Process() {
     
     // Función para verificar si OpenCV está completamente cargado
     const checkOpenCvLoaded = () => {
-      return window.cv && typeof window.cv.imread === 'function';
+      return (
+        typeof window.cv !== 'undefined' &&
+        window.cv.Mat &&
+        typeof window.cv.imread === 'function'
+      );
     };
     
     // Verificar si OpenCV ya está cargado
@@ -852,7 +852,8 @@ export default function Process() {
         window.removeEventListener('opencv-loaded', handleOpenCvLoaded);
       };
     }
-  }, [location]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, openCvLoaded]);
   
   // Procesar la imagen cuando esté disponible y OpenCV esté cargado
   useEffect(() => {
@@ -885,7 +886,8 @@ export default function Process() {
       
       img.src = imageUrl;
     }
-  }, [imageUrl]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageUrl, openCvLoaded]);
   
   // Función para restaurar la imagen original (útil cuando se está en modo debug)
   const restoreOriginalImage = useCallback(() => {
